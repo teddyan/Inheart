@@ -1,0 +1,64 @@
+@import url(_global.css);
+@import url(_layout.css);
+@import url(_nav.css);
+@import url(_grid.css);
+@import url(_helper.css);
+
+.site-header {
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: relative;
+	z-index: 99;
+}
+
+.site-logo {
+	text-transform: uppercase;
+	font-weight: 800;
+	float: left;
+}
+
+@media (max-width: 992px) {
+	.site-menu {
+		white-space: nowrap;
+		width: 100%;
+		overflow: auto;
+	}
+}
+
+.site-logo,
+.site-header-toggle,
+.site-menu .nav-link {
+	padding: 20px 10px;
+}
+
+.site-banner img {
+	margin-top: -140px;
+}
+
+.site-footer {
+	position: relative;
+	z-index: 1;
+}
+
+
+.site-main {
+	position: relative;
+	z-index: 1;
+}
+
+.content {
+	margin: 20px 0;
+	background-color: #f7e5e5;
+   border-style:solid ;
+   border-width:5px;
+   border-color:#000000;
+    
+}
+
+.site-main-inner::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+

@@ -1,0 +1,27 @@
+﻿@model Pinzoe_Client.ViewModel.ShowProductViewModel
+@{
+    var count = 1;
+
+}
+@foreach (var item in Model.ProductSet)
+{
+    var piece = 0;
+    foreach (var i in Model.GiftboxItemSet)
+    {
+        piece += i.Count;
+    }
+    <div class="Product">
+        <img src="~/Images/box11100.jpg" alt="@item.Name" />
+        <p class="lblProductName">@item.Name @item.Price / @piece 片</p>
+        @Html.ActionLink("選擇此產品", "CustomizeProduct", new { giftboxId = @item.Id })
+    </div>
+   
+       
+        @*<input type="button" class="btn btn-lg btn-primary" value="下一步 " />*@
+ 
+    if (count % 2 == 0)
+    {
+        <hr />
+    }
+    count += 1;
+}

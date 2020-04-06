@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Pinzoe_Client.Models.GiftboxItemSet>
+@{
+    ViewBag.Title = "ItemPicked";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<script type="text/javascript">
+    function TriggerModal() {
+        $('#exampleModalCenter').modal('show');
+    }
+</script>
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <h2>Test</h2>
+                    <img src="~/Img/box12000.jpg" width="200" height="200" />
+
+                </div>
+                @using (Ajax.BeginForm("CookieComplete", "Product", new AjaxOptions()
+                {
+                    HttpMethod = "POST",
+                    UpdateTargetId = "PlanCompleteZone",
+                    OnSuccess = "TriggerModal"
+                }))
+                {
+                    <div class="col-md-12">
+                        <!--表格-->
+                        <div class="content">
+                            <div class="row">
+                                @{
+                                    var countDiv = 1; //計算第幾格儲存格,因餅乾內容有重複,利用此動作來判斷要更新哪一個欄位
+                                    foreach (var i in Model)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="show-col-2" style="height: 100px">
+                                                @Ajax.ActionLink(i.FoodCategorySet.Name + i.Count, "_CookiesChosen", new { foodCategoryId = i.FoodCategory_Id, giftboxItemSetId = i.Id }, new AjaxOptions { UpdateTargetId = "cookiesZone" })
+                                                @*@Ajax.ActionLink(i.Category.Name + i.Count, "_CookiesChosen", new { categoryID = i.Category_ID, dCompositionID = i.Serial }, new AjaxOptions { UpdateTargetId = "cookiesZone" })*@
+                                                <div id="Div-@i.Id">
+                                                    <!--被選擇的Cookie文字-->
+                                                    @Html.Action("_Cookien")
+                                                </div>
+                                                <input type="hidden" value="@i.Count" name="CookieCount" />
+                                                <input type="hidden" value="@i.ProductSet_Giftbox.ProductSet.Id" name="ProductId" />
+                                            </div>
+                                        </div>
+                                        countDiv++;
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                    <input type="submit" value="確定禮盒" />
+                    @*@Ajax.ActionLink("確定", "PlanComplete", null, new AjaxOptions { UpdateTargetId = "PlanCompleteZone" },new {@type="submit" })*@
+
+                                    }
+                <!--結束-->
+                <div class="col-md-12">
+                    @*@Html.Action("_AddToCart")*@
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12" id="cookiesZone">
+                    @Html.Action("_CookiesChosen")
+                </div>
+
+            </div>
+        </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">您的禮盒內容</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PlanCompleteZone">
+                        @Html.Action("PlanComplete")
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a onclick="AddToCart('1')" href="javascript:void(0);" class="btn btn-primary" role="button">加入購物車</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+    </div>
+</div>

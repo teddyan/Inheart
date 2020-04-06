@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Pinzoe_Client.Models.FoodSet>
+<div class="a-block-container cookie_item">
+    <div class="a-block-body item-style">
+        @foreach (var i in Model)
+        {
+            <div class="box">
+                <img src="~/Images/food_@(i.Id).png" />
+                @*<a href="~/Images/food_@(i.Id).png" class="tm-gallery-img-link">
+                        <img src="~/Images/food_@(i.Id).png" alt="Image" class="img-fluid tm-gallery-img">
+
+                    </a>
+                *@
+                @i.Name
+            </div>
+        }
+        </div>
+    </div>

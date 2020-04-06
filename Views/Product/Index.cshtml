@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Pinzoe_Client.Models.ProductTypeSet>
+
+@{
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<div id="main">
+    <div id="content-header" class="container CenterContainter" style="margin-top: 80px;margin-bottom:50px;">
+        <div class="row">
+            <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                @foreach (var a in Model)
+                {
+                    <li class="nav-item ">
+                        @Ajax.ActionLink(a.Name, "ShowProduct", new { ProductTypeId = a.Id }, new AjaxOptions { UpdateTargetId = "product" })
+                        @*            <a href="/Plans/_ShowPlan" data-ajax="true" class="nav-link"></a>*@
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div id="content-body " class="container CenterContainter">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane active" id="pills-marrige" role="tabpanel" aria-labelledby="pills-marrige-tab">
+                <div id="MarrigeBox">
+                    <div id="product">
+                        @Html.Action("ShowProduct")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</div>

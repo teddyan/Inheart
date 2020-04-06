@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Pinzoe_Client.Models.FoodSet>
+
+
+<div id="CookieCategory_@ViewBag.CookieCategoryID" class="a-block-container col-md-6 col-lg-6 cookie_item">
+    <h3 class="text-center">@ViewBag.CookieCategoryName</h3>
+    <div class="a-block-body item-style">
+        @foreach (var cookie in Model)
+        {
+            <div class="box">
+                <img src="~/Images/food_@(cookie.Id).png" />
+                <p class="lblProductName">@cookie.Name</p>
+                <input type="hidden" name="Cookies" value="@cookie.Id" />
+            </div>
+        }
+        @*<div class="box">
+                <img src="images/cookie10100.png" alt="">
+                <p class="lblProductName">杏仁乳加</p>
+            </div>
+            <div class="box">
+                <img src="images/cookie10200.png" alt="">
+                <p class="lblProductName">抹茶小熊餅乾</p>
+            </div>
+            <div class="box">
+                <img src="images/cookie10300.png" alt="">
+                <p class="lblProductName">葉子餅乾</p>
+            </div>
+            <div class="box">
+                <img src="images/cookie10400.png" alt="">
+                <p class="lblProductName">蝴蝶餅</p>
+            </div>*@
+    </div>
+</div>

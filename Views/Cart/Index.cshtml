@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Pinzoe_Client.Models.CartItemSet>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<script type="text/javascript">
+ 
+    function updateTotal() {
+        var sum = 0;
+        $('.subtotal').each(function () {
+            sum += parseInt($(this).text());
+        })
+        document.getElementById("total").innerText = sum;
+    }
+</script>
+<h1></h1>
+
+<div id="main" class="container">
+    <div id="content-header">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="CartText" class="text-capitalize" style="margin-top:75px;margin-bottom:75px">
+                    <h2 style="font-family:'Microsoft JhengHei'">購物車</h2>
+                </div>
+            </div>
+        </div>
+        <div id="content-body">
+            <div id="CommodityList" class="a-block">
+                <table class="table a-block-body text-center">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">商品</th>
+                            <th class="col-md-2">品項</th>
+                            <th class="col-md-1">單價</th>
+                            <th class="col-md-3">數量</th>
+                            <th class="col-md-2">小計</th>
+                            <th class="col-md-1">刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="~/Img/box11100.jpg" width="185" height="125" />
+                                    <div>@item.ProductSet.ProductTypeSet.Name/@item.ProductSet.Name</div>
+                                </td>
+                                <td>
+                                    <span>
+                                        @Html.Action("PickItem", "CheckOut", new { cartitemID = item.Id })
+                                    </span>
+                                </td>
+                                <td>
+                                    @item.ProductSet.Price
+                                </td>
+                                <td>
+                                    @using (Ajax.BeginForm("SubTotal", new AjaxOptions()
+                                    {
+                                        UpdateTargetId = "subtotal" + "_" + item.Id,
+                                        OnSuccess = "updateTotal"
+                                    }))
+                                    {
+
+                                        <input id="count" style="text-align:center" type="text" value="@item.Count" name="count" class="col-md-8 form-control">
+                                        <input type="hidden" value="@item.Id" name="Id" />
+                                        <input type="submit" value="確定數量" />
+                                    }
+                                </td>
+                                <td id="subtotal_@item.Id" class="subtotal">
+                                    @*@item.Subtotal*@
+                                    @Html.Action("SubTotal", new { id = item.Id })
+                                </td>
+                                <td>
+                                    @Html.ActionLink("X", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>總計</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="total">@Html.Action("Total")</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="a-block">
+                @Html.ActionLink("←　　繼續選購", "Index", "Product", null, new { @class = "btn btn-lg btn-primary col-md-3 " })
+                <input type="button" class="btn btn-lg btn-primary col-md-3 col-md-offset-6 " value="前往結帳　　→" />
+            </div>
+        </div>
+    </div>
+</div><!-- /main End -->
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subtotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartSet.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductSet.Name)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subtotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CartSet.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductSet.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>*@

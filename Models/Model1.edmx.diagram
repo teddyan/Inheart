@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="feaeb0a3c0534c348c6836e0be64daa9" Name="Diagram1">
+        <EntityTypeShape EntityType="PinzoeMFModel.CartItemSet" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.CartSet" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.FoodCategorySet" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.FoodDetailSet" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.FoodSet" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.GiftboxItemSet" Width="1.5" PointX="10.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.GiftboxTypeSet" Width="1.5" PointX="6" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.MemberAccountSet" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.MemberSet" Width="1.5" PointX="6" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.PickedItemSet" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.ProductDetailSet" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.ProductSet" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.ProductSet_Giftbox" Width="1.5" PointX="8.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.ProductSet_WeddingFavor" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.ProductTypeSet" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PinzoeMFModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="PinzoeMFModel.FK_CartItemSet_CartSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_CartItemSet_ProductSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_PickedItemSet_CartItemSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_MemberAccountSet_CartSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_FoodSet_FoodCategorySet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_GiftboxItemSet_FoodCategorySet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_FoodDetailSet_FoodSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_PickedItemSet_FoodSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_GiftboxItemSet_ProductSet_Giftbox" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_ProductSet_Giftbox_GiftboxTypeSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_MemberAccountSet_MemberSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_ProductDetailSet_ProductSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_ProductSet_Giftbox_ProductSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_ProductSet_ProductTypeSet" ManuallyRouted="false" />
+        <AssociationConnector Association="PinzoeMFModel.FK_ProductSet_WeddingFavor_ProductSet" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

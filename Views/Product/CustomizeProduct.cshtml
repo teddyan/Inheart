@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Pinzoe_Client.Models.GiftboxItemSet>
+@using Pinzoe_Client.Models;
+@{
+
+    Layout = "~/Views/Shared/_Template.cshtml";
+
+    List<List<GiftboxItemSet>> giftBoxItem_groupByThreeCount = new List<List<GiftboxItemSet>>();
+    for (int i = 0; i < Model.Count(); i++)
+    {
+        if (i % 3 == 0)
+        {
+            giftBoxItem_groupByThreeCount.Add(new List<GiftboxItemSet>());
+        }
+        giftBoxItem_groupByThreeCount[giftBoxItem_groupByThreeCount.Count() - 1].Add(Model.ElementAtOrDefault(i));
+    }
+
+}
+
+<body>
+    <div id="wrapper">
+        <div id="page-container">
+            <div id="main" class="container">
+                <div id="content-body">
+                    <div class="a-block">
+                        <h2 class="text-center article">客製化禮盒</h2>
+                        <div class="a-block-container block-center">
+                            <div class="text-right col-sm-3"><img src="~/Images/box1.png" /></div>
+                            <div class="text-left  col-sm-3">
+                                <h3>鳳凰于飛</h3><small>彌月喜餅</small>
+                                <h4>640 元</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>配置</td>
+                                            <td>小餅乾X20、薄餅乾X12、典藏餅乾X1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>尺寸</td>
+                                            <td>data</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    @using (Ajax.BeginForm("ProductComplete", "Product", new AjaxOptions()
+                    {
+                        HttpMethod = "POST",
+                    }))
+                    {
+                        <div class="a-block container">
+                            @*  <div class="a-block-container col-md-6 col-lg-6">*@
+                            <h3 class="text-center">禮盒配置</h3>
+                            <div class="content" style="position:relative;width:100%;table-layout:fixed">
+                               <div class="container" style="position:relative;width:100%;table-layout:fixed">
+                                <div class="row text-center" style="width:100%;overflow:auto;position:relative">
+
+                                    @{
+
+                                        var index = 0;
+                                        //List<GiftboxItemSet> b = new List<GiftboxItemSet>();
+                                        while (index < Model.Count())
+                                        {
+                                            int MaxThree = 3;
+                                            var countQuantity = 0;
+
+                                            while (countQuantity < MaxThree)
+                                            {
+                                                var a = Model.ElementAtOrDefault(index);
+
+                                                if (countQuantity % 3 == 0)
+                                                {
+                                                    @:<div class="col-md-4" style="display:flex;height:300px;flex-direction:column;flex-wrap:wrap">
+                                                }
+
+                                                @*<div id="sm_cookie2" class="show-col-2" name="small_cookie_items" style="height: 100px">*@
+                                                <div id="sm_cookie2" class="show-col-2 col-md-12" style="flex:1;">
+                                                  
+                                                        @Ajax.ActionLink(a.FoodCategorySet.Name, "Cookies", new
+                                                       {
+                                                           FoodId = a.FoodCategory_Id
+                                                       }, new AjaxOptions()
+                                                       {
+                                                           UpdateTargetId = "cookie",
+                                                           OnSuccess = "ActiveCookieDiv"
+                                                       })
+                                                   
+                                                </div>
+                                                <input type="hidden" value="@a.Count" name="Count" />
+
+                                                countQuantity++;
+
+                                                if (countQuantity % 3 == 0)
+                                                {
+                                                    @:</div>
+                                                        }
+                                                if (index + 1 == Model.Count())
+                                                {
+                                                    index++;
+                                                    break;
+                                                }
+                                                index++;
+
+                                            }
+
+
+                                        }<!--End Looping Zone-->
+                                    }<!--End @@ Zone-->
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div id="cookie">
+                                @Html.Action("Cookies")
+                            </div>
+                            <!--END COOKIES-->
+
+                                        <input type="submit" value="確定禮盒" class="ui-button" />
+                                        }
+                </div>
+            </div>
+        </div>
+        <!-- /main End -->
+    </div>
+    <!-- /page-container End -->
+    <!-- /wrapper End -->
+</body>

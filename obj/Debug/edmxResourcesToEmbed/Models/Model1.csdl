@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PinzoeMFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CartItemSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="Subtotal" Type="Int32" Nullable="false" />
+    <Property Name="Cart_Id" Type="Int32" Nullable="false" />
+    <Property Name="Product_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CartSet" Relationship="Self.FK_CartItemSet_CartSet" FromRole="CartItemSet" ToRole="CartSet" />
+    <NavigationProperty Name="ProductSet" Relationship="Self.FK_CartItemSet_ProductSet" FromRole="CartItemSet" ToRole="ProductSet" />
+    <NavigationProperty Name="PickedItemSet" Relationship="Self.FK_PickedItemSet_CartItemSet" FromRole="CartItemSet" ToRole="PickedItemSet" />
+  </EntityType>
+  <EntityType Name="CartSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Total" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CartItemSet" Relationship="Self.FK_CartItemSet_CartSet" FromRole="CartSet" ToRole="CartItemSet" />
+    <NavigationProperty Name="MemberAccountSet" Relationship="Self.FK_MemberAccountSet_CartSet" FromRole="CartSet" ToRole="MemberAccountSet" />
+  </EntityType>
+  <EntityType Name="FoodCategorySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="FoodSet" Relationship="Self.FK_FoodSet_FoodCategorySet" FromRole="FoodCategorySet" ToRole="FoodSet" />
+    <NavigationProperty Name="GiftboxItemSet" Relationship="Self.FK_GiftboxItemSet_FoodCategorySet" FromRole="FoodCategorySet" ToRole="GiftboxItemSet" />
+  </EntityType>
+  <EntityType Name="FoodDetailSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Food_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FoodSet" Relationship="Self.FK_FoodDetailSet_FoodSet" FromRole="FoodDetailSet" ToRole="FoodSet" />
+  </EntityType>
+  <EntityType Name="FoodSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FoodCategory_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FoodCategorySet" Relationship="Self.FK_FoodSet_FoodCategorySet" FromRole="FoodSet" ToRole="FoodCategorySet" />
+    <NavigationProperty Name="FoodDetailSet" Relationship="Self.FK_FoodDetailSet_FoodSet" FromRole="FoodSet" ToRole="FoodDetailSet" />
+    <NavigationProperty Name="PickedItemSet" Relationship="Self.FK_PickedItemSet_FoodSet" FromRole="FoodSet" ToRole="PickedItemSet" />
+  </EntityType>
+  <EntityType Name="GiftboxItemSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Giftbox_Id" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="FoodCategory_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FoodCategorySet" Relationship="Self.FK_GiftboxItemSet_FoodCategorySet" FromRole="GiftboxItemSet" ToRole="FoodCategorySet" />
+    <NavigationProperty Name="ProductSet_Giftbox" Relationship="Self.FK_GiftboxItemSet_ProductSet_Giftbox" FromRole="GiftboxItemSet" ToRole="ProductSet_Giftbox" />
+  </EntityType>
+  <EntityType Name="GiftboxTypeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ProductSet_Giftbox" Relationship="Self.FK_ProductSet_Giftbox_GiftboxTypeSet" FromRole="GiftboxTypeSet" ToRole="ProductSet_Giftbox" />
+  </EntityType>
+  <EntityType Name="MemberAccountSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cart_Id" Type="Int32" Nullable="false" />
+    <Property Name="Member_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CartSet" Relationship="Self.FK_MemberAccountSet_CartSet" FromRole="MemberAccountSet" ToRole="CartSet" />
+    <NavigationProperty Name="MemberSet" Relationship="Self.FK_MemberAccountSet_MemberSet" FromRole="MemberAccountSet" ToRole="MemberSet" />
+  </EntityType>
+  <EntityType Name="MemberSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sex" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="MemberAccountSet" Relationship="Self.FK_MemberAccountSet_MemberSet" FromRole="MemberSet" ToRole="MemberAccountSet" />
+  </EntityType>
+  <EntityType Name="PickedItemSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="Food_Id" Type="Int32" Nullable="false" />
+    <Property Name="CartItem_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CartItemSet" Relationship="Self.FK_PickedItemSet_CartItemSet" FromRole="PickedItemSet" ToRole="CartItemSet" />
+    <NavigationProperty Name="FoodSet" Relationship="Self.FK_PickedItemSet_FoodSet" FromRole="PickedItemSet" ToRole="FoodSet" />
+  </EntityType>
+  <EntityType Name="ProductDetailSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ProductSet" Relationship="Self.FK_ProductDetailSet_ProductSet" FromRole="ProductDetailSet" ToRole="ProductSet" />
+  </EntityType>
+  <EntityType Name="ProductSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="ProductType_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CartItemSet" Relationship="Self.FK_CartItemSet_ProductSet" FromRole="ProductSet" ToRole="CartItemSet" />
+    <NavigationProperty Name="ProductDetailSet" Relationship="Self.FK_ProductDetailSet_ProductSet" FromRole="ProductSet" ToRole="ProductDetailSet" />
+    <NavigationProperty Name="ProductSet_Giftbox" Relationship="Self.FK_ProductSet_Giftbox_ProductSet" FromRole="ProductSet" ToRole="ProductSet_Giftbox" />
+    <NavigationProperty Name="ProductTypeSet" Relationship="Self.FK_ProductSet_ProductTypeSet" FromRole="ProductSet" ToRole="ProductTypeSet" />
+    <NavigationProperty Name="ProductSet_WeddingFavor" Relationship="Self.FK_ProductSet_WeddingFavor_ProductSet" FromRole="ProductSet" ToRole="ProductSet_WeddingFavor" />
+  </EntityType>
+  <EntityType Name="ProductSet_Giftbox">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="GiftboxType_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="GiftboxItemSet" Relationship="Self.FK_GiftboxItemSet_ProductSet_Giftbox" FromRole="ProductSet_Giftbox" ToRole="GiftboxItemSet" />
+    <NavigationProperty Name="GiftboxTypeSet" Relationship="Self.FK_ProductSet_Giftbox_GiftboxTypeSet" FromRole="ProductSet_Giftbox" ToRole="GiftboxTypeSet" />
+    <NavigationProperty Name="ProductSet" Relationship="Self.FK_ProductSet_Giftbox_ProductSet" FromRole="ProductSet_Giftbox" ToRole="ProductSet" />
+  </EntityType>
+  <EntityType Name="ProductSet_WeddingFavor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ProductSet" Relationship="Self.FK_ProductSet_WeddingFavor_ProductSet" FromRole="ProductSet_WeddingFavor" ToRole="ProductSet" />
+  </EntityType>
+  <EntityType Name="ProductTypeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ProductSet" Relationship="Self.FK_ProductSet_ProductTypeSet" FromRole="ProductTypeSet" ToRole="ProductSet" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_CartItemSet_CartSet">
+    <End Role="CartSet" Type="Self.CartSet" Multiplicity="1" />
+    <End Role="CartItemSet" Type="Self.CartItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CartSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CartItemSet">
+        <PropertyRef Name="Cart_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartItemSet_ProductSet">
+    <End Role="ProductSet" Type="Self.ProductSet" Multiplicity="1" />
+    <End Role="CartItemSet" Type="Self.CartItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CartItemSet">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PickedItemSet_CartItemSet">
+    <End Role="CartItemSet" Type="Self.CartItemSet" Multiplicity="1" />
+    <End Role="PickedItemSet" Type="Self.PickedItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CartItemSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PickedItemSet">
+        <PropertyRef Name="CartItem_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MemberAccountSet_CartSet">
+    <End Role="CartSet" Type="Self.CartSet" Multiplicity="1" />
+    <End Role="MemberAccountSet" Type="Self.MemberAccountSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CartSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MemberAccountSet">
+        <PropertyRef Name="Cart_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FoodSet_FoodCategorySet">
+    <End Role="FoodCategorySet" Type="Self.FoodCategorySet" Multiplicity="1" />
+    <End Role="FoodSet" Type="Self.FoodSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodCategorySet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodSet">
+        <PropertyRef Name="FoodCategory_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GiftboxItemSet_FoodCategorySet">
+    <End Role="FoodCategorySet" Type="Self.FoodCategorySet" Multiplicity="1" />
+    <End Role="GiftboxItemSet" Type="Self.GiftboxItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodCategorySet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GiftboxItemSet">
+        <PropertyRef Name="FoodCategory_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FoodDetailSet_FoodSet">
+    <End Role="FoodSet" Type="Self.FoodSet" Multiplicity="1" />
+    <End Role="FoodDetailSet" Type="Self.FoodDetailSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodDetailSet">
+        <PropertyRef Name="Food_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PickedItemSet_FoodSet">
+    <End Role="FoodSet" Type="Self.FoodSet" Multiplicity="1" />
+    <End Role="PickedItemSet" Type="Self.PickedItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PickedItemSet">
+        <PropertyRef Name="Food_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GiftboxItemSet_ProductSet_Giftbox">
+    <End Role="ProductSet_Giftbox" Type="Self.ProductSet_Giftbox" Multiplicity="1" />
+    <End Role="GiftboxItemSet" Type="Self.GiftboxItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductSet_Giftbox">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GiftboxItemSet">
+        <PropertyRef Name="Giftbox_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSet_Giftbox_GiftboxTypeSet">
+    <End Role="GiftboxTypeSet" Type="Self.GiftboxTypeSet" Multiplicity="1" />
+    <End Role="ProductSet_Giftbox" Type="Self.ProductSet_Giftbox" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GiftboxTypeSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductSet_Giftbox">
+        <PropertyRef Name="GiftboxType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MemberAccountSet_MemberSet">
+    <End Role="MemberSet" Type="Self.MemberSet" Multiplicity="1" />
+    <End Role="MemberAccountSet" Type="Self.MemberAccountSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MemberAccountSet">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductDetailSet_ProductSet">
+    <End Role="ProductSet" Type="Self.ProductSet" Multiplicity="1" />
+    <End Role="ProductDetailSet" Type="Self.ProductDetailSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductDetailSet">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSet_Giftbox_ProductSet">
+    <End Role="ProductSet" Type="Self.ProductSet" Multiplicity="1" />
+    <End Role="ProductSet_Giftbox" Type="Self.ProductSet_Giftbox" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ProductSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductSet_Giftbox">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSet_ProductTypeSet">
+    <End Role="ProductTypeSet" Type="Self.ProductTypeSet" Multiplicity="1" />
+    <End Role="ProductSet" Type="Self.ProductSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductTypeSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductSet">
+        <PropertyRef Name="ProductType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSet_WeddingFavor_ProductSet">
+    <End Role="ProductSet" Type="Self.ProductSet" Multiplicity="1" />
+    <End Role="ProductSet_WeddingFavor" Type="Self.ProductSet_WeddingFavor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ProductSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductSet_WeddingFavor">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PinzoeMFEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CartItemSet" EntityType="Self.CartItemSet" />
+    <EntitySet Name="CartSet" EntityType="Self.CartSet" />
+    <EntitySet Name="FoodCategorySet" EntityType="Self.FoodCategorySet" />
+    <EntitySet Name="FoodDetailSet" EntityType="Self.FoodDetailSet" />
+    <EntitySet Name="FoodSet" EntityType="Self.FoodSet" />
+    <EntitySet Name="GiftboxItemSet" EntityType="Self.GiftboxItemSet" />
+    <EntitySet Name="GiftboxTypeSet" EntityType="Self.GiftboxTypeSet" />
+    <EntitySet Name="MemberAccountSet" EntityType="Self.MemberAccountSet" />
+    <EntitySet Name="MemberSet" EntityType="Self.MemberSet" />
+    <EntitySet Name="PickedItemSet" EntityType="Self.PickedItemSet" />
+    <EntitySet Name="ProductDetailSet" EntityType="Self.ProductDetailSet" />
+    <EntitySet Name="ProductSet" EntityType="Self.ProductSet" />
+    <EntitySet Name="ProductSet_Giftbox" EntityType="Self.ProductSet_Giftbox" />
+    <EntitySet Name="ProductSet_WeddingFavor" EntityType="Self.ProductSet_WeddingFavor" />
+    <EntitySet Name="ProductTypeSet" EntityType="Self.ProductTypeSet" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_CartItemSet_CartSet" Association="Self.FK_CartItemSet_CartSet">
+      <End Role="CartSet" EntitySet="CartSet" />
+      <End Role="CartItemSet" EntitySet="CartItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartItemSet_ProductSet" Association="Self.FK_CartItemSet_ProductSet">
+      <End Role="ProductSet" EntitySet="ProductSet" />
+      <End Role="CartItemSet" EntitySet="CartItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PickedItemSet_CartItemSet" Association="Self.FK_PickedItemSet_CartItemSet">
+      <End Role="CartItemSet" EntitySet="CartItemSet" />
+      <End Role="PickedItemSet" EntitySet="PickedItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MemberAccountSet_CartSet" Association="Self.FK_MemberAccountSet_CartSet">
+      <End Role="CartSet" EntitySet="CartSet" />
+      <End Role="MemberAccountSet" EntitySet="MemberAccountSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FoodSet_FoodCategorySet" Association="Self.FK_FoodSet_FoodCategorySet">
+      <End Role="FoodCategorySet" EntitySet="FoodCategorySet" />
+      <End Role="FoodSet" EntitySet="FoodSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GiftboxItemSet_FoodCategorySet" Association="Self.FK_GiftboxItemSet_FoodCategorySet">
+      <End Role="FoodCategorySet" EntitySet="FoodCategorySet" />
+      <End Role="GiftboxItemSet" EntitySet="GiftboxItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FoodDetailSet_FoodSet" Association="Self.FK_FoodDetailSet_FoodSet">
+      <End Role="FoodSet" EntitySet="FoodSet" />
+      <End Role="FoodDetailSet" EntitySet="FoodDetailSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PickedItemSet_FoodSet" Association="Self.FK_PickedItemSet_FoodSet">
+      <End Role="FoodSet" EntitySet="FoodSet" />
+      <End Role="PickedItemSet" EntitySet="PickedItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GiftboxItemSet_ProductSet_Giftbox" Association="Self.FK_GiftboxItemSet_ProductSet_Giftbox">
+      <End Role="ProductSet_Giftbox" EntitySet="ProductSet_Giftbox" />
+      <End Role="GiftboxItemSet" EntitySet="GiftboxItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSet_Giftbox_GiftboxTypeSet" Association="Self.FK_ProductSet_Giftbox_GiftboxTypeSet">
+      <End Role="GiftboxTypeSet" EntitySet="GiftboxTypeSet" />
+      <End Role="ProductSet_Giftbox" EntitySet="ProductSet_Giftbox" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MemberAccountSet_MemberSet" Association="Self.FK_MemberAccountSet_MemberSet">
+      <End Role="MemberSet" EntitySet="MemberSet" />
+      <End Role="MemberAccountSet" EntitySet="MemberAccountSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductDetailSet_ProductSet" Association="Self.FK_ProductDetailSet_ProductSet">
+      <End Role="ProductSet" EntitySet="ProductSet" />
+      <End Role="ProductDetailSet" EntitySet="ProductDetailSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSet_Giftbox_ProductSet" Association="Self.FK_ProductSet_Giftbox_ProductSet">
+      <End Role="ProductSet" EntitySet="ProductSet" />
+      <End Role="ProductSet_Giftbox" EntitySet="ProductSet_Giftbox" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSet_ProductTypeSet" Association="Self.FK_ProductSet_ProductTypeSet">
+      <End Role="ProductTypeSet" EntitySet="ProductTypeSet" />
+      <End Role="ProductSet" EntitySet="ProductSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSet_WeddingFavor_ProductSet" Association="Self.FK_ProductSet_WeddingFavor_ProductSet">
+      <End Role="ProductSet" EntitySet="ProductSet" />
+      <End Role="ProductSet_WeddingFavor" EntitySet="ProductSet_WeddingFavor" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(PinzoeMFModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(PinzoeMFModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
